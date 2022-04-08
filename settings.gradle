@@ -3,5 +3,5 @@ include 'micro-services:product-composite-service'
 include 'micro-services:product-service'
 include 'micro-services:recommendation-service'
 include 'micro-services:review-service'
-include 'rest-service:api'
-
+include 'api'
+include 'utils'

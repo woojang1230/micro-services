@@ -13,6 +13,10 @@ public class Product {
         this.serviceAddress = serviceAddress;
     }
 
+    public static Product createDefault() {
+        return new Product(0, null, 0, null);
+    }
+
     public int getProductId() {
         return productId;
     }
