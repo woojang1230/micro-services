@@ -38,3 +38,10 @@ subprojects {
         testImplementation('io.projectreactor:reactor-test')
     }
 }
+
+//project(':micro-services:product-service') {
+//    dependencies {
+//        implementation project(':api')
+//        implementation project(':utils')
+//    }
+//}
