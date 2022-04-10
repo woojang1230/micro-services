@@ -1,0 +1,12 @@
+server:
+  port: 8000
+app:
+  product-service:
+    host: localhost
+    port: 8001
+  recommendation-service:
+    host: localhost
+    port: 8002
+  review-service:
+    host: localhost
+    port: 8003

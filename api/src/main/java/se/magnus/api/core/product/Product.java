@@ -1,10 +1,13 @@
 package se.magnus.api.core.product;
 
 public class Product {
-    private final int productId;
-    private final String name;
-    private final int weight;
-    private final String serviceAddress;
+    private int productId;
+    private String name;
+    private int weight;
+    private String serviceAddress;
+
+    protected Product() {
+    }
 
     public Product(final int productId, final String name, final int weight, final String serviceAddress) {
         this.productId = productId;

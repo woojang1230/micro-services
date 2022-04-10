@@ -11,82 +11,69 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class RecommendationServiceApplicationTest {
+class ProductServiceApplicationTest {
+
     @Autowired
     private WebTestClient client;
 
     @Test
-    void getRecommendationsByProductId() {
+    void getProductById() {
 
         int productId = 1;
 
         client.get()
-                .uri("/recommendation?productId=" + productId)
+                .uri("/product/" + productId)
                 .accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.length()").isEqualTo(3)
-                .jsonPath("$[0].productId").isEqualTo(productId);
+                .jsonPath("$.productId").isEqualTo(productId);
     }
 
     @Test
-    void getRecommendationsMissingParameter() {
+    void getProductInvalidParameterString() {
 
         client.get()
-                .uri("/recommendation")
+                .uri("/product/no-integer")
                 .accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(BAD_REQUEST)
                 .expectHeader().contentType(APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.path").isEqualTo("/recommendation")
-                .jsonPath("$.message").isEqualTo("Required int parameter 'productId' is not present");
-    }
-
-    @Test
-    void getRecommendationsInvalidParameter() {
-
-        client.get()
-                .uri("/recommendation?productId=no-integer")
-                .accept(APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isEqualTo(BAD_REQUEST)
-                .expectHeader().contentType(APPLICATION_JSON)
-                .expectBody()
-                .jsonPath("$.path").isEqualTo("/recommendation")
+                .jsonPath("$.path").isEqualTo("/product/no-integer")
                 .jsonPath("$.message").isEqualTo("Type mismatch.");
     }
 
     @Test
-    void getRecommendationsNotFound() {
+    void getProductNotFound() {
 
-        int productIdNotFound = 113;
+        int productIdNotFound = 13;
 
         client.get()
-                .uri("/recommendation?productId=" + productIdNotFound)
+                .uri("/product/" + productIdNotFound)
                 .accept(APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isOk()
+                .expectStatus().isNotFound()
                 .expectHeader().contentType(APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.length()").isEqualTo(0);
+                .jsonPath("$.path").isEqualTo("/product/" + productIdNotFound)
+                .jsonPath("$.message").isEqualTo("No product found for productId: " + productIdNotFound);
     }
 
     @Test
-    void getRecommendationsInvalidParameterNegativeValue() {
+    void getProductInvalidParameterNegativeValue() {
 
         int productIdInvalid = -1;
 
         client.get()
-                .uri("/recommendation?productId=" + productIdInvalid)
+                .uri("/product/" + productIdInvalid)
                 .accept(APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
                 .expectHeader().contentType(APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.path").isEqualTo("/recommendation")
+                .jsonPath("$.path").isEqualTo("/product/" + productIdInvalid)
                 .jsonPath("$.message").isEqualTo("Invalid productId: " + productIdInvalid);
     }
 }
