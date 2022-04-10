@@ -16,13 +16,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-public class ProductCompositeServiceImpl implements ProductCompositeRestController {
+public class ProductCompositeRestControllerImpl implements ProductCompositeRestController {
 
     private final ServiceUtil serviceUtil;
     private final ProductCompositeIntegration integration;
 
     @Autowired
-    public ProductCompositeServiceImpl(ServiceUtil serviceUtil, ProductCompositeIntegration integration) {
+    public ProductCompositeRestControllerImpl(ServiceUtil serviceUtil, ProductCompositeIntegration integration) {
         this.serviceUtil = serviceUtil;
         this.integration = integration;
     }
