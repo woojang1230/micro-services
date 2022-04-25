@@ -2,3 +2,9 @@ dependencies {
     implementation project(':api')
     implementation project(':utils')
 }
+bootJar {
+    enabled(true)
+}
+jar {
+    enabled(false)
+}

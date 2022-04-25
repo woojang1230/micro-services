@@ -1,6 +1,5 @@
-server:
-  port: 8001
+server.port: 8001
 logging:
   level:
     root: INFO
-    se.magnus.microservices: DEBUG
+    se.magnus: DEBUG
