@@ -1,0 +1,2 @@
+#!/bin/sh
+docker-compose down && ./gradlew clean build --parallel && docker-compose build && docker-compose up -d && docker-compose logs -f
