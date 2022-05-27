@@ -39,18 +39,18 @@ api:
         ## Negative product ids
         422 - An <b>Unprocessable Entity</b> error will be returned
 
-server.port: 8000
+server.port: 7000
 server.error.include-message: always
 app:
   product-service:
     host: localhost
-    port: 8001
+    port: 7001
   recommendation-service:
     host: localhost
-    port: 8002
+    port: 7002
   review-service:
     host: localhost
-    port: 8003
+    port: 7003
 logging:
   level:
     root: INFO

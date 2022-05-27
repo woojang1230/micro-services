@@ -8,7 +8,7 @@ public class Recommendation {
     private String content;
     private String serviceAddress;
 
-    protected Recommendation() {
+    public Recommendation() {
     }
 
     public Recommendation(final int productId, final int recommendationId, final String author, final int rate,
@@ -47,5 +47,29 @@ public class Recommendation {
 
     public String getServiceAddress() {
         return serviceAddress;
+    }
+
+    public void setProductId(final int productId) {
+        this.productId = productId;
+    }
+
+    public void setRecommendationId(final int recommendationId) {
+        this.recommendationId = recommendationId;
+    }
+
+    public void setAuthor(final String author) {
+        this.author = author;
+    }
+
+    public void setRate(final int rate) {
+        this.rate = rate;
+    }
+
+    public void setContent(final String content) {
+        this.content = content;
+    }
+
+    public void setServiceAddress(final String serviceAddress) {
+        this.serviceAddress = serviceAddress;
     }
 }

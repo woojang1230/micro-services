@@ -8,7 +8,7 @@ public class Review {
     private String content;
     private String serviceAddress;
 
-    protected Review() {
+    public Review() {
     }
 
     public Review(final int productId, final int reviewId, final String author, final String subject,

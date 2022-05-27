@@ -46,7 +46,7 @@ public class ProductCompositeServiceApplication {
     }
 
     @Bean
-    public RestTemplate getRestTemplate() {
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 

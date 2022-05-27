@@ -6,7 +6,7 @@ public class Product {
     private int weight;
     private String serviceAddress;
 
-    protected Product() {
+    public Product() {
     }
 
     public Product(final int productId, final String name, final int weight, final String serviceAddress) {
@@ -34,5 +34,9 @@ public class Product {
 
     public String getServiceAddress() {
         return serviceAddress;
+    }
+
+    public void setServiceAddress(final String serviceAddress) {
+        this.serviceAddress = serviceAddress;
     }
 }

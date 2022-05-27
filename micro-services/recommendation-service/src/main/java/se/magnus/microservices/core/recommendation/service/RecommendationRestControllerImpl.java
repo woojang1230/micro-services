@@ -1,4 +1,4 @@
-package se.magnus.microservices.core.product.service;
+package se.magnus.microservices.core.recommendation.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.api.core.recommendation.RecommendationRestController;
+import se.magnus.microservices.core.recommendation.persistence.RecommendationRepository;
 import se.magnus.util.exceptions.InvalidInputException;
 import se.magnus.util.http.ServiceUtil;
 
 @RestController
 public class RecommendationRestControllerImpl implements RecommendationRestController {
     private static final Logger LOG = LoggerFactory.getLogger(RecommendationRestControllerImpl.class);
+    private final RecommendationRepository repository;
+    private final RecommendationMapper mapper;
     private final ServiceUtil serviceUtil;
 
-    @Autowired
-    public RecommendationRestControllerImpl(final ServiceUtil serviceUtil) {
+    public RecommendationRestControllerImpl(final RecommendationRepository repository,
+                                            final RecommendationMapper mapper,
+                                            final ServiceUtil serviceUtil) {
+        this.repository = repository;
+        this.mapper = mapper;
         this.serviceUtil = serviceUtil;
+    }
+
+    @Override
+    public Recommendation createRecommendation(final Recommendation body) {
+        return null;
     }
 
     @Override
@@ -43,5 +54,10 @@ public class RecommendationRestControllerImpl implements RecommendationRestContr
         LOG.debug("/recommendation response size: {}", list.size());
 
         return ResponseEntity.ok(list);
+    }
+
+    @Override
+    public void deleteRecommendations(final int productId) {
+
     }
 }
