@@ -48,4 +48,28 @@ public class Review {
     public String getServiceAddress() {
         return serviceAddress;
     }
+
+    public void setProductId(final int productId) {
+        this.productId = productId;
+    }
+
+    public void setReviewId(final int reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public void setAuthor(final String author) {
+        this.author = author;
+    }
+
+    public void setSubject(final String subject) {
+        this.subject = subject;
+    }
+
+    public void setContent(final String content) {
+        this.content = content;
+    }
+
+    public void setServiceAddress(final String serviceAddress) {
+        this.serviceAddress = serviceAddress;
+    }
 }

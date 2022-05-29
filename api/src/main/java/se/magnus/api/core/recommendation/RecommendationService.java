@@ -1,11 +1,10 @@
 package se.magnus.api.core.recommendation;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-public interface RecommendationRestController {
+import reactor.core.publisher.Flux;
+
+public interface RecommendationService {
     @PostMapping(
             value    = "/recommendation",
             consumes = "application/json",
@@ -13,7 +12,7 @@ public interface RecommendationRestController {
     Recommendation createRecommendation(@RequestBody Recommendation body);
 
     @GetMapping(value = "/recommendation", produces = "application/json")
-    ResponseEntity<List<Recommendation>> getRecommendations(@RequestParam(value = "productId", required = true) int productId);
+    Flux<Recommendation> getRecommendations(@RequestParam(value = "productId", required = true) int productId);
 
     @DeleteMapping(value = "/recommendation")
     void deleteRecommendations(@RequestParam(value = "productId", required = true)  int productId);

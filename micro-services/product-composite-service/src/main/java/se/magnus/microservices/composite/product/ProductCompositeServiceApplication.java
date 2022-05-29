@@ -4,13 +4,17 @@ import static java.util.Collections.emptyList;
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 import static springfox.documentation.spi.DocumentationType.OAS_30;
 
+import java.util.LinkedHashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.health.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.client.RestTemplate;
 
+import se.magnus.microservices.composite.product.services.ProductCompositeIntegration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -46,11 +50,6 @@ public class ProductCompositeServiceApplication {
     }
 
     @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
     public Docket apiDocumentation() {
         // Swagger 3.0 사용 시 DocumentationType.OAS_30 세팅
         return new Docket(OAS_30)
@@ -70,5 +69,23 @@ public class ProductCompositeServiceApplication {
                 .apiInfo(new ApiInfo(apiTitle, apiDescription, apiVersion, apiTermsOfServiceUrl,
                         new Contact(apiContactName, apiContactUrl, apiContactEmail), apiLicense, apiLicenseUrl,
                         emptyList()));
+    }
+
+    @Autowired
+    HealthAggregator healthAggregator;
+
+    @Autowired
+    ProductCompositeIntegration integration;
+
+    @Bean
+    ReactiveHealthIndicator coreServices() {
+
+        ReactiveHealthIndicatorRegistry registry = new DefaultReactiveHealthIndicatorRegistry(new LinkedHashMap<>());
+
+        registry.register("product", () -> integration.getProductHealth());
+        registry.register("recommendation", () -> integration.getRecommendationHealth());
+        registry.register("review", () -> integration.getReviewHealth());
+
+        return new CompositeReactiveHealthIndicator(healthAggregator, registry);
     }
 }

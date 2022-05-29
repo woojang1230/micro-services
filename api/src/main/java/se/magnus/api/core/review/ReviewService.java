@@ -1,11 +1,10 @@
 package se.magnus.api.core.review;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-public interface ReviewRestController {
+import reactor.core.publisher.Flux;
+
+public interface ReviewService {
     @PostMapping(
             value    = "/review",
             consumes = "application/json",
@@ -13,7 +12,7 @@ public interface ReviewRestController {
     Review createReview(@RequestBody Review body);
 
     @GetMapping(value = "/review", produces = "application/json")
-    ResponseEntity<List<Review>> getReviews(@RequestParam(value = "productId", required = true) int productId);
+    Flux<Review> getReviews(@RequestParam(value = "productId", required = true) int productId);
 
     @DeleteMapping(value = "/review")
     void deleteReviews(@RequestParam(value = "productId", required = true)  int productId);

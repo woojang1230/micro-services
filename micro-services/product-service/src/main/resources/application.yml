@@ -1,4 +1,5 @@
-server.port: 8001
+server.port: 7001
+server.error.include-message: always
 logging:
   level:
     root: INFO
@@ -10,3 +11,52 @@ spring:
       host: localhost
       port: 27017
       database: product-db
+
+spring.cloud.stream:
+  defaultBinder: rabbit
+  default:
+    contentType: application/json
+  bindings:
+    input:
+      destination: products
+      group: productsGroup
+  # RabbitMQ DLQ 설정
+  rabbit:
+    bindings:
+      input:
+        consumer:
+          autoBindDlq: true
+          republishToDlq: true
+  kafka:
+    binder:
+      brokers: 127.0.0.1
+      defaultBrokerPort: 9092
+    # Kafka DLQ 설정
+    bindings.input.consumer:
+      enableDlq: true
+
+spring.cloud.stream.bindings.input.consumer:
+  maxAttempts: 3
+  backOffInitialInterval: 500
+  backOffMaxInterval: 1000
+  backOffMultiplier: 2.0
+
+#spring.cloud.stream.rabbit.bindings.input.consumer:
+#  autoBindDlq: true
+#  republishToDlq: true
+
+#spring.cloud.stream.kafka:
+#  binder:
+#    brokers: 127.0.0.1
+#    defaultBrokerPort: 9092
+#  bindings.input.consumer:
+#    enableDlq: true
+
+spring.rabbitmq:
+  host: 127.0.0.1
+  port: 5672
+  username: guest
+  password: guest
+
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"

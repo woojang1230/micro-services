@@ -1,13 +1,13 @@
 package se.magnus.api.composite.product;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import reactor.core.publisher.Mono;
 
-public interface ProductCompositeRestController {
+public interface ProductCompositeService {
     @ApiOperation(
             value = "${api.product-composite.create-composite-product.description}",
             notes = "${api.product-composite.create-composite-product.notes}")
@@ -30,7 +30,7 @@ public interface ProductCompositeRestController {
             @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fails. See response message for more information.")
     })
     @GetMapping(value = "/product-composite/{productId}", produces = "application/json")
-    ResponseEntity<ProductAggregate> getProduct(@PathVariable int productId);
+    Mono<ProductAggregate> getCompositeProduct(@PathVariable int productId);
 
     @ApiOperation(
             value = "${api.product-composite.delete-composite-product.description}",
@@ -40,5 +40,5 @@ public interface ProductCompositeRestController {
             @ApiResponse(code = 422, message = "Unprocessable entity, input parameters caused the processing to fail. See response message for more information.")
     })
     @DeleteMapping(value = "/product-composite/{productId}")
-    void deleteProduct(@PathVariable int productId);
+    void deleteCompositeProduct(@PathVariable int productId);
 }
