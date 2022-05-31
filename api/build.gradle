@@ -1,6 +1,9 @@
 bootJar {
     enabled(false)
 }
+jar {
+    enabled(true)
+}
 ext {
     springBootVersion = '2.3.2.RELEASE'
 }

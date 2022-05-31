@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 openjdk:12.0.2
+FROM openjdk:17-jdk-oracle
 
 EXPOSE 8080
 

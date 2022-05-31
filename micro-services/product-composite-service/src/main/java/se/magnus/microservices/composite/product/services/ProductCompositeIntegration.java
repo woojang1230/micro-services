@@ -78,9 +78,9 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
         this.webClient = webClient.build();
         this.mapper = mapper;
         this.messageSources = messageSources;
-        this.productServiceUrl = PRE_URL_HTTP + productServiceHost + ":" + productServicePort + "/product/";
-        this.recommendationServiceUrl = PRE_URL_HTTP + recommendationServiceHost + ":" + recommendationServicePort + "/recommendation?productId=";
-        this.reviewServiceUrl = PRE_URL_HTTP + reviewServiceHost + ":" + reviewServicePort + "/review?productId=";
+        this.productServiceUrl = PRE_URL_HTTP + productServiceHost + ":" + productServicePort;
+        this.recommendationServiceUrl = PRE_URL_HTTP + recommendationServiceHost + ":" + recommendationServicePort;
+        this.reviewServiceUrl = PRE_URL_HTTP + reviewServiceHost + ":" + reviewServicePort;
     }
 
     @Override
