@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   product:
-    build: microservices/product-service
+    build: micro-services/product-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -16,7 +16,7 @@ services:
       - mongodb
 
   product-p1:
-    build: microservices/product-service
+    build: micro-services/product-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -30,7 +30,7 @@ services:
       - mongodb
 
   recommendation:
-    build: microservices/recommendation-service
+    build: micro-services/recommendation-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -44,7 +44,7 @@ services:
       - mongodb
 
   recommendation-p1:
-    build: microservices/recommendation-service
+    build: micro-services/recommendation-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -58,7 +58,7 @@ services:
       - mongodb
 
   review:
-    build: microservices/review-service
+    build: micro-services/review-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -74,7 +74,7 @@ services:
         condition: service_started
 
   review-p1:
-    build: microservices/review-service
+    build: micro-services/review-service
     mem_limit: 350m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -90,7 +90,7 @@ services:
         condition: service_started
 
   product-composite:
-    build: microservices/product-composite-service
+    build: micro-services/product-composite-service
     mem_limit: 350m
     ports:
       - "8080:8080"
@@ -109,7 +109,7 @@ services:
 
   # $ mongo
   mongodb:
-    image: mongo:3.6.9
+    image: mongo:3.6.23
     mem_limit: 350m
     ports:
       - "27017:27017"
@@ -132,8 +132,20 @@ services:
       timeout: 5s
       retries: 10
 
+#  burrow:
+#    build: burrow
+#    volumes:
+#      - ${PWD}/docker-config:/etc/burrow/
+#      - ${PWD}/tmp:/var/tmp/burrow
+#    ports:
+#      - 8000:8000
+#    depends_on:
+#      - zookeeper
+#      - kafka
+#    restart: always
+
   kafka:
-    image: wurstmeister/kafka:2.12-2.1.0
+    image: wurstmeister/kafka:2.13-2.8.1
     mem_limit: 350m
     ports:
       - "9092:9092"
